@@ -6,11 +6,11 @@ import { Provider } from 'react-redux';
 import { __redux } from './_memo';
 import { withDisplayName } from '../utils/withDisplayName';
 
-export const withStore = (reducers, middleware = []) => BaseComponent => {
+export const withStore = (entities, middleware = []) => BaseComponent => {
   const WithStore = props => {
-    __redux.reducers = reducers;
+    __redux.reducers = entities;
     __redux.store = createStore(
-      combineReducers(reducers),
+      combineReducers(entities),
       applyMiddleware(thunk, ...middleware)
     );
 

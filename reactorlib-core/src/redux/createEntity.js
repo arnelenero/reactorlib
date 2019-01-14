@@ -1,6 +1,6 @@
 import { __actionCreators } from './_memo';
 
-export const generateReducer = (reactions, initialState = {}) => {
+export const createEntity = (reactions, initialState = {}) => {
   const handlers = {};
 
   const registerHandler = (type, handler) => {
@@ -11,7 +11,7 @@ export const generateReducer = (reactions, initialState = {}) => {
   for (let k in reactions) {
     if (__actionCreators[k] && process.env.NODE_ENV !== 'production')
       console.warn(
-        `Multiple reducers are handling action '${k}'. Intentional?`
+        `Multiple entities respond to action '${k}'. Intentional?`
       );
 
     if (typeof reactions[k] === 'function') {
@@ -36,4 +36,4 @@ export const generateReducer = (reactions, initialState = {}) => {
   return reducer;
 };
 
-export default generateReducer;
+export default createEntity;

@@ -3,9 +3,9 @@ export { withContext, getPropsFromContext } from './context';
 export { withEffect, withCleanup } from './effect';
 export {
   withStore,
-  withFeatureReducers,
+  withFeatureStore,
   getPropsFromStore,
-  generateReducer,
+  createEntity,
 } from './redux';
 export { RouterOutlet } from './routing';
 export { withState } from './state';
