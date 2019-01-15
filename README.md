@@ -11,9 +11,9 @@ Here are things that Reactor Library can help you work with:
 
 # Functional Components
 
-The use of Reactor Library's _higher order components_ (HOCs) encourage the use of _functional components_ (in constrast to _class components_), which are enhanced by injecting data or additional functionality into them.
+The use of Reactor Library's _higher order components_ (HOCs) encourage the use of _functional components_ (in constrast to _class components_), which are enhanced by injecting data or additional functionality into them. You can, however, also use Reactor Library with your existing class based components.
 
-**Note on React Hooks:** At the time of this writing, the React Hooks API has not been officially released yet. Developers who prefer to jump to pure functional components right away will find Reactor Library's HOCs useful while waiting for the Hooks version.
+**Note on React Hooks:** At the time of this writing, the React Hooks API has not been officially released yet. Developers who choose to jump to pure functional components right away will find Reactor Library's HOCs useful while waiting for the Hooks version.
 
 ## Enhancing Components by Composition
 
