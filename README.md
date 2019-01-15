@@ -315,6 +315,19 @@ const App = () => (
 export default withStore({ session, user })(App);
 ```
 
+## Adding Lazy-Loaded Entities to Store
+
+If you use code splitting, a lazy-loaded module can have its own _feature store_ containing feature-specific entities.  As there can only be a single store in the app, Reactor Library provides a simple way to dynamically merge lazy-loaded feature stores into the main store.
+
+### `withFeatureStore`
+
+This HOC adds the lazy-loaded entities coming from a feature store into the main store. It automatically does this store-merging as soon as the HOC's target component's module is loaded. For this reason, this should only be used on lazy-loaded components.
+
+```typescript
+withFeatureStore(entities: Object)
+```
+This has exactly the same signature as `withStore` and the same usage pattern.
+
 ## Importing Props from Store
 
 Components are able to read the application state by importing entities from the store. They can also change the app state by importing actions from the store.
