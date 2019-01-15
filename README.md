@@ -226,7 +226,7 @@ The `reactions` argument is a mapping of action names against corresponding reac
 
 Each reaction is described in either of 2 forms:
 
-### Simple Reaction
+#### Simple Reaction
 
 ```javascript
 action: (state, payload) => newState
@@ -234,7 +234,7 @@ action: (state, payload) => newState
 
 where `action` corresponds to the name of an action, while `payload` (optional) is any **single argument** that the entity expects you to pass to the action. All this really means is, when  `action(payload)` is invoked, the entity applies certain logic to change its state from  `state` to  `newState`.
 
-### Async Reaction
+#### Async Reaction
 
 ```javascript
 action: [
@@ -263,6 +263,12 @@ action: [
   (state, result) => newState
 ]
 ```
+
+### Do Not Mutate the State
+
+**IMPORTANT**: In defining your entity's reactions, the React golden rule of not mutating the component state also applies to the application state. So if your entity's state is of object or array type, always make sure to return a fresh object or array.
+
+### Example Usage
 
 Here is an example of a complete entity with both simple and async reactions:
 
@@ -301,7 +307,8 @@ withStore(entities: Object)
 
 Here the `entities` argument is a mapping of entity names against the actual entity objects created using `createEntity()`. This mapping is important because we access entities from the store using the names assigned here.
 
-**Example usage.** If we are to use the `session` entity we created in the previous example, together with another called `user`, here's how we do it:
+### Example Usage
+If we are to use the `session` entity we created in the previous example, together with another called `user`, here's how we do it:
 ```javascript
 import session from './store/session';
 import user from './store/user';
@@ -347,7 +354,8 @@ Imported actions are injected as function props that you can directly invoke ins
 
 **Where do we define these action functions?** We don't. The store creates these for us, based on the action names we mapped to the _reactions_ when creating our entities with `createEntity`.
 
-**Example usage.** Continuing the previous examples, we import the `session` and  `user` entities from the store, together with the `login()` action:
+### Example Usage
+Continuing the previous examples, we import the `session` and  `user` entities from the store, together with the `login()` action:
 ```javascript
 const Login = ({ session, user, login }) => (
   <>
