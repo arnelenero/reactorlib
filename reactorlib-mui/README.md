@@ -1,6 +1,6 @@
 # Reactor Library - Material UI Extension
 
-Reactor Library simplifies React/Redux development, minimizing the required boilerplate to get the job done.
+Reactor Library simplifies React/Redux development, minimizing the boilerplate required to get the job done.
 
 Here are things that Reactor Library can help you work with:
 

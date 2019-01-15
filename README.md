@@ -1,12 +1,12 @@
 # Reactor Library
 
-Reactor Library simplifies React/Redux development, minimizing the required boilerplate to get the job done.
+Reactor Library simplifies React/Redux development, minimizing the boilerplate required to get the job done.
 
 Here are things that Reactor Library can help you work with:
 
 - [Functional Components](#functional-components)
-- [Routing](#routing)
-- [Redux](#redux)
+- [Declarative Routing](#declarative-routing)
+- [Simplified App State](#simplified-app-state) (fresh take on Redux)
 - [Context](#context)
 
 To install:
@@ -72,7 +72,7 @@ Functional components by nature do not have lifecycle methods. However, we can s
 ### `withEffect`
 ...
 
-# Routing
+# Declarative Routing
 
 To enable routing, the app would have a `<Router>` instance at a top-level component, ideally the `<App>`. You will only need to have **one** such instance for the entire app. This is provided by the standard `react-router`, not Reactor Library. You can check the `react-router` [official documentation](https://reacttraining.com/react-router/core/api/Router) for details.
 
@@ -80,7 +80,7 @@ What Reactor Library does provide is simple, declarative routing that works with
 
 ## The Router Outlet
 
-Admittedly inspired by Angular's approach to router, Reactor Library provides a _router outlet_ component that is a convenient drop-in replacement for `react-router`'s combination of `<Switch>`, `<Route>` and `<Redirect>` components, that adds a couple of neat features as well.
+Admittedly inspired by Angular's approach to routing, Reactor Library provides a _router outlet_ component that is a convenient drop-in replacement for `react-router`'s combination of `<Switch>`, `<Route>` and `<Redirect>` components, that adds a couple of neat features as well.
 
 ### `<RouterOutlet>`
 
