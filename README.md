@@ -9,6 +9,11 @@ Here are things that Reactor Library can help you work with:
 - [Redux](#redux)
 - [Context](#context)
 
+To install:
+```
+npm install @reactorlib/core --save
+```
+
 # Functional Components
 
 The use of Reactor Library's _higher order components_ (HOCs) encourage the use of _functional components_ (in constrast to _class components_), which are enhanced by injecting data or additional functionality into them. You can, however, also use Reactor Library with your existing class based components.
