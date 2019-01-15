@@ -25,7 +25,7 @@ The use of Reactor Library's _higher order components_ (HOCs) encourage the use 
 ### `compose`
 
 This Reactor function stacks multiple HOCs and returns a single HOC with the combined effect of all the stacked HOCs.
-```javascript
+```typescript
 compose(...functions: Array<Function>)(Component)
 ```
 This applies the HOCs passed as arguments, from **right to left** (just like how function nesting works).
@@ -45,8 +45,8 @@ To circumvent the _stateless_ nature of functional components, where all you def
 ### `withState`
 
 This HOC provides state and makes it available within the component function as a prop. It is used as a regular prop, except that it also behaves as an internal state, i.e. changing its value will re-render the component. For this reason, we will refer to it as a _state prop_.
-```javascript
-withState(state: String, initialValue: any)
+```typescript
+withState(state: string, initialValue: any)
 ```
 Apart from the state prop itself, `withState` also injects the corresponding updater function for the state. Just as with class components, we need some sort of `this.setState()`to properly update a state prop of our functional component. In this case it is named after the state prop, e.g. for state prop called `email`, the updater function is called `setEmail`. Since it is also injected, we can refer to it as _updater prop_.
 
@@ -67,10 +67,36 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
 
 ## Effects as Alternative to Lifecycle Methods
 
-Functional components by nature do not have lifecycle methods. However, we can still implement routines that need to run whenever the component mounts, updates or unmounts using _effects_.
+Functional components by nature do not have lifecycle methods. However, we can still implement routines that need to run whenever the component renders, mounts or unmounts using _effects_ and _cleanup_.
 
 ### `withEffect`
-...
+
+This HOC injects a function into the component such that it gets executed whenever the component renders, or only when it mounts. 
+```typescript
+withEffect(effect: Function, onlyOnMount: boolean)
+```
+This allows you to run code that would otherwise be unsafe to do inside the main body of the function component, such as state mutations, timers, async operations and similar side effects.
+
+When `onlyOnMount` is set to `true`, this is the direct alternative to `componentDidMount()`. Otherwise, it behaves like running the effect inside both `componentDidMount()` and `componentDidUpdate()`.
+
+### `withCleanup`
+
+This HOC works similar to `withEffect` except that it gets executed when the component unmounts. 
+```typescript
+withCleanup(cleanup: Function)
+```
+This allows you to perform necessary teardown code, such as cancelling ongoing async operations and clearing timers that would otherwise cause errors when their callback fires while the component is already gone.
+
+Example usage:
+```javascript
+export default compose(
+  withEffect(doFetchConfig, true),
+  withEffect(updateTimer),
+  withCleanup(clearTimer)
+)(Timer);
+```
+In this example, the combination of effects and cleaup will have the net effect of performing an async `doFetchConfig()` when `<Timer>` mounts, calling `updateTimer()` on mount and every re-render thereafter, then finally `clearTimer()` once the component unmounts.
+
 
 # Declarative Routing
 
