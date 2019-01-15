@@ -112,16 +112,6 @@ Note that `withCleanup` passes the (optional) `props` of the component to the fu
 ### Example usage of effects and cleanup
 
 ```javascript
-const doFetchConfig = ({ config, fetchConfig, setActivePage }) => {
-  if (!config) fetchConfig();
-  setActivePage('feature-one');
-};
-
-const clearTimer = () => {
-  clearTimeout(countdown);
-  clearTimeout(timer);
-};
-
 export default compose(
   withEffect(doFetchConfig, true),
   withEffect(updateTimer),
