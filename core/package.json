@@ -1,17 +1,16 @@
 {
-  "name": "@reactorlib/mui",
-  "version": "0.2.1",
-  "description": "Material UI extension of Reactor Library",
+  "name": "@reactorlib/core",
+  "version": "0.2.2",
+  "description": "Reactor Library - the simplified React/Redux essentials",
   "keywords": [
-    "reactor",
-    "library",
     "react",
-    "material-ui",
-    "mui",
-    "extension",
-    "HOC",
+    "redux",
+    "library",
     "helper",
-    "utilities"
+    "HOC",
+    "routing",
+    "context",
+    "functional"
   ],
   "author": "Arnel Enero <aenero@gmail.com>",
   "license": "MIT",
@@ -31,12 +30,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "@material-ui/core": "^3.8.2",
-    "@reactorlib/core": "^0.2.1"
+    "react": "^16.7.0"
   },
   "dependencies": {
-    "react-jss": "^8.6.1"
+    "prop-types": "^15.6.2",
+    "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",
