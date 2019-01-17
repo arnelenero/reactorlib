@@ -234,6 +234,10 @@ action: (state, payload) => newState
 
 where `action` corresponds to the name of an action, while `payload` (optional) is any **single argument** that the entity expects you to pass to the action. All this really means is, when  `action(payload)` is invoked, the entity applies certain logic to change its state from  `state` to  `newState`.
 
+This diagram illustrates the flow of data through a simple reaction:
+
+![simple reaction flow](./docs/simple-reaction-flow.png)
+
 #### Async Reaction
 
 ```javascript
@@ -252,7 +256,11 @@ This is what you use if you need the reaction to include some sort of _side effe
 2. The _**async step**_ where the entity performs the side effect in the form of an async operation, e.g. fetching data from the server. It waits until the async operation completes, before calling the next step.
 3. The _**completion step**_ where the final state change is made, normally based on result of the preceding async step.
 
-The startup step is optional, so sometimes you would only need to use this 2-step form:
+This diagram illustrates how data flows throughout the 3 steps of the async reaction:
+
+![async reaction flow](./docs/async-reaction-flow.png)
+
+The startup step is actually optional, so sometimes you would only need to use this 2-step form:
 
 ```javascript
 action: [
