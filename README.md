@@ -27,17 +27,24 @@ The use of Reactor Library's _higher order components_ (HOCs) encourage the use 
 This Reactor function stacks multiple HOCs and returns a single HOC with the combined effect of all the stacked HOCs.
 
 ```typescript
-compose(...functions: Array<Function>)(Component)
+compose(...functions)(Component)
 ```
 
 This applies the HOCs passed as arguments, from **right to left** (just like how function nesting works).
 
+This makes stacked HOCs more readable and easier to rearrange, especially since typical HOCs are _parameterized_, i.e. they are actually functions that take some argument(s) and return the actual HOC.
+
 For example:
 ```javascript
-export default compose(
+const MyComponent = compose(
   withStore({ session }),
   withStyles(styles)
-)(MyComponent);
+)(BaseComponent);
+```
+
+The above is just a better way of presenting this:
+```javascript
+const MyComponent = withStore({ session })(withStyles(styles)(BaseComponent))
 ```
 
 ## Adding State to Functional Components
@@ -58,7 +65,7 @@ Apart from the state prop itself, `withState` also injects the corresponding upd
 
 Example usage:
 ```javascript
-export default compose(
+compose(
   withState('email', ''),
   withState('password', '')
 )(LoginForm);
@@ -112,11 +119,11 @@ Note that `withCleanup` passes the (optional) `props` of the component to the fu
 ### Example usage of effects and cleanup
 
 ```javascript
-export default compose(
+const Timer = compose(
   withEffect(doFetchConfig, true),
   withEffect(updateTimer),
   withCleanup(clearTimer)
-)(Timer);
+)(BaseTimer);
 ```
 
 In this example, the combination of effects and cleaup will have the net effect of performing an async `doFetchConfig(props)` when `<Timer>` mounts, calling `updateTimer(props)` on mount and every re-render thereafter, then finally `clearTimer(props)` once the component unmounts.
