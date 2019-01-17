@@ -24,7 +24,7 @@ The use of Reactor Library's _higher order components_ (HOCs) encourage the use 
 
 ### `compose`
 
-This Reactor function stacks multiple HOCs and returns a single HOC with the combined effect of all the stacked HOCs.
+This function stacks multiple HOCs and returns a single HOC with the combined effect of all the stacked HOCs.
 
 ```typescript
 compose(...functions)(Component)
@@ -32,7 +32,7 @@ compose(...functions)(Component)
 
 This applies the HOCs passed as arguments, from **right to left** (just like how function nesting works).
 
-This makes stacked HOCs more readable and easier to rearrange, especially since typical HOCs are _parameterized_, i.e. they are actually functions that take some argument(s) and return the actual HOC.
+Using this format makes stacked HOCs more readable and easier to rearrange, especially since typical HOCs are _parameterized_, i.e. they are actually functions that take some argument(s) and return the actual HOC.
 
 For example:
 ```javascript
