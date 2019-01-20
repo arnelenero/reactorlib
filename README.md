@@ -283,10 +283,6 @@ action: [
 
 **IMPORTANT**: In defining your entity's reactions, the React golden rule of not mutating the component state also applies to the application state. So if your entity's state is of object or array type, always make sure to return a fresh object or array.
 
-### Multiple Entities Reacting to the Same Action
-
-It is absolutely normal for different entities to have reaction to the same action. In non-production mode, Reactor Library will output a console warning just to make sure that such duplicate is indeed intentional.
-
 ### Example Usage
 
 Here is an example of a complete entity with both simple and async reactions:
@@ -311,6 +307,10 @@ const session = createEntity(
 
 export default session;
 ```
+
+### Multiple Entities Reacting to the Same Action
+
+It is absolutely normal for different entities to have reaction to the same action. In non-production mode, Reactor Library will output a console warning just to make sure that such duplicate is indeed intentional.
 
 ## Setting Up the Store
 
