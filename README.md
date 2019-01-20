@@ -283,6 +283,10 @@ action: [
 
 **IMPORTANT**: In defining your entity's reactions, the React golden rule of not mutating the component state also applies to the application state. So if your entity's state is of object or array type, always make sure to return a fresh object or array.
 
+### Multiple Entities Reacting to the Same Action
+
+It is absolutely normal for different entities to have reaction to the same action. In non-production mode, Reactor Library will output a console warning just to make sure that such duplicate is indeed intentional.
+
 ### Example Usage
 
 Here is an example of a complete entity with both simple and async reactions:
@@ -367,7 +371,7 @@ Imported entities are injected as _state props_, similar to how `withState` does
 
 Imported actions are injected as function props that you can directly invoke inside your component's _effects_ or event handlers.
 
-**Where do we define these action functions?** We don't. The store creates these for us, based on the action names we mapped to the _reactions_ when creating our entities with `createEntity`.
+**Where do we define these action functions?** We don't. The store creates these for us, based on all the action names we mapped to the _reactions_ when creating our entities with `createEntity`. Therefore, if an action is not mapped by any of the entities, the store would not provide any corresponding action function.
 
 ### Example Usage
 Continuing the previous examples, we import the `session` and  `user` entities from the store, together with the `login()` action:
