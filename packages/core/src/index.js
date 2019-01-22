@@ -1,6 +1,7 @@
 export { compose } from './compose';
 export { withContext, getPropsFromContext } from './context';
 export { withEffect, withCleanup } from './effect';
+export { http } from './http';
 export {
   withStore,
   withFeatureStore,
