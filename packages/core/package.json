@@ -1,6 +1,6 @@
 {
   "name": "@reactorlib/core",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "description": "Reactor Library - the simplified React/Redux essentials",
   "keywords": [
     "react",

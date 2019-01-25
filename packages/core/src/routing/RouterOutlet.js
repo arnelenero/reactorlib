@@ -14,7 +14,7 @@ export const RouterOutlet = ({ routes, placeholder, ..._props }) => (
           to={route.redirectTo}
           push={route.push}
         />
-      ) : route.canEnter && !route.canEnter(_props) ? (
+      ) : route.canEnter && !route.canEnter({ ..._props, routes }, route) ? (
         <Redirect
           key={index}
           from={route.path}
