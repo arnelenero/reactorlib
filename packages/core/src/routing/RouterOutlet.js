@@ -29,11 +29,15 @@ export const RouterOutlet = ({ routes, placeholder, ..._props }) => (
           path={route.path}
           exact={route.exact}
           strict={route.strict}
-          render={props => (
-            <Suspense fallback={placeholder || <div />}>
+          render={props =>
+            Suspense ? (
+              <Suspense fallback={placeholder || <div />}>
+                <route.component {...props} routes={route.routes} />
+              </Suspense>
+            ) : (
               <route.component {...props} routes={route.routes} />
-            </Suspense>
-          )}
+            )
+          }
         />
       )
     )}
