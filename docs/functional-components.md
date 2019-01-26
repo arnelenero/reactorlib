@@ -31,6 +31,8 @@ The above is just a better way of presenting this:
 const MyComponent = withStore({ session })(withStyles(styles)(BaseComponent))
 ```
 
+The `compose` function is a very common _functional programming_ utility, and therefore if you are already familiar with the `compose` function from other libraries like Redux, this does exactly the same thing. While you are unlikely to import Reactor Library just for this function, it is provided here for convenience of using it with HOCs that Reactor Library provides.
+
 ## Adding State to Functional Components
 
 To circumvent the _stateless_ nature of functional components, where all you define are props, you would need to inject internal state into the component as props.

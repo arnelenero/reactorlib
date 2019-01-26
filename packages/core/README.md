@@ -9,4 +9,4 @@ Here are things that Reactor Library can help you work with:
 - Simplified App State (fresh take on Redux)
 - Context
 
-See the full documentation here: [https://github.com/arnelenero/reactorlib](https://github.com/arnelenero/reactorlib)
+See the full documentation here: [https://github.com/arnelenero/reactorlib](https://github.com/arnelenero/reactorlib#reactor-library)

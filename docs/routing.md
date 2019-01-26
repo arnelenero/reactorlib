@@ -68,7 +68,7 @@ Sometimes you need to restrict access to certain routes depending on some condit
 const isAuthenticated = ({ auth }) => auth !== null;
 ```
 
-If a `canEnter` _guard function_ is defined, the router will only activate the matched route if this function evaluates to `true`. Otherwise, it will route to the `fallback` route. This is useful for apps that require user login to access specific features.
+If a `canEnter` _guard function_ is defined, the router will only activate the matched route if this function evaluates to `true`. Otherwise, it will route to the `fallback` path. This is useful for apps that require user login to access specific features.
 
 The general form of such guard function is:
 ```typescript
@@ -81,6 +81,8 @@ In the example above, the outlet would look like this:
 <RouterOutlet routes={routes} auth={token} />
 ```
 so that the `auth` prop is passed to the `isAuthenticated` guard.
+
+If you pass some _state_ value (or an injected _state prop_, either internal or from store), the `<RouterOutlet>` will re-evaluate the guard function and hence re-render whenever this state value changes.
 
 ## Routing to Lazy Loaded Components
 

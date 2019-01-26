@@ -2,7 +2,9 @@
 
 Reactor Library simplifies React/Redux development, minimizing the boilerplate required to get the job done.
 
-Here are things that Reactor Library can help you work with:
+## Usage Guides
+
+Below are things that Reactor Library can help you work with. Click the links to learn about how you can use the specific features.
 
 - [Functional Components](./docs/functional-components.md) (state, _effects_)
   - [Enhancing components by composition](./docs/functional-components.md#enhancing-components-by-composition)
@@ -20,6 +22,9 @@ Here are things that Reactor Library can help you work with:
   - [Importing props from store](./docs/app-state.md#importing-props-from-store)
   - [Advanced usage (Redux)](./docs/app-state.md#advanced-usage)
 - [Context](./docs/context.md)
+
+
+## Setup
 
 To install:
 ```

@@ -14,4 +14,4 @@ This expansion package adds convenience functions to help you integrate **[Mater
 - Theme provider
 - Additional JSS presets (e.g. [jss-expand](https://github.com/cssinjs/jss-expand))
 
-See the full documentation of Reactor Library here: [https://github.com/arnelenero/reactorlib](https://github.com/arnelenero/reactorlib)
+See the full documentation of Reactor Library here: [https://github.com/arnelenero/reactorlib](https://github.com/arnelenero/reactorlib#reactor-library)
