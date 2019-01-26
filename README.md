@@ -146,6 +146,7 @@ Place this component wherever you need routed views.
 ```html
 <RouterOutlet routes={routes} />
 ```
+where `routes` defines the routes declaratively (see below).
 
 Routing can apply to any level component, so you can place a `<RouterOutlet>` virtually anywhere in the component tree.
 
@@ -153,24 +154,24 @@ Routing can apply to any level component, so you can place a `<RouterOutlet>` vi
 
 We use this format when declaring routes:
 ```javascript
-  const routes = [
-    {
-      path: '/login',
-      component: LoginPage
-    },
-    {
-      path: '/default',
-      component: DefaultPage
-    },
-    {
-      path: '/',
-      exact: true,
-      redirectTo: '/default'
-    },
-    {
-      component: NotFound
-    }
-  ];
+const routes = [
+  {
+    path: '/login',
+    component: LoginPage
+  },
+  {
+    path: '/default',
+    component: DefaultPage
+  },
+  {
+    path: '/',
+    exact: true,
+    redirectTo: '/default'
+  },
+  {
+    component: NotFound
+  }
+];
 ```
 
 These are the common cases for routes:
@@ -183,15 +184,30 @@ These are the common cases for routes:
 ## Protected Routes
 
 ```javascript
-    {
-      path: '/default',
-      component: DefaultPage,
-      canEnter: isAuthenticated,
-      fallback: '/login',
-    },
+  {
+    path: '/default',
+    component: DefaultPage,
+    canEnter: isAuthenticated,
+    fallback: '/login',
+  },
+```
+```javascript
+const isAuthenticated = ({ auth }) => auth !== null;
 ```
 
-If a `canEnter` guard function is defined, the router will only activate the matched route if this function evaluates to `true`. Otherwise, it will route to the `fallback` route. This is useful for apps that require user login to access specific features.
+If a `canEnter` _guard function_ is defined, the router will only activate the matched route if this function evaluates to `true`. Otherwise, it will route to the `fallback` route. This is useful for apps that require user login to access specific features.
+
+The general form of such guard function is:
+```typescript
+guardFn = (outletProps: Object, route: Object) => condition: Boolean
+```
+where `outletProps` accepts all props that were passed to `<RouterOutlet>`, while `route` is a reference to the matched route.
+
+In the example above, the outlet would look like this:
+```html
+<RouterOutlet routes={routes} auth={token} />
+```
+so that the `auth` prop is passed to the `isAuthenticated` guard.
 
 ## Routing to Lazy Loaded Components
 
@@ -205,7 +221,12 @@ import React, { lazy } from 'react';
 const WelcomePage = lazy(() => import('../welcome/WelcomePage'));
 ```
 
-The `<RouterOutlet>` supports routing to such lazy-loaded components by using React Suspense internally.
+Then you can optionally tell `<RouterOutlet>` to display a placeholder (e.g. a spinner component) while the component is being loaded. For example:
+```html
+<RouterOutlet routes={routes} placeholder={<div>...</div>} />
+```
+
+The `<RouterOutlet>` supports routing to such lazy-loaded components by using **React Suspense** internally.
 
 For more information on React Lazy and Suspense, check out the [official documentation](https://reactjs.org/docs/code-splitting.html).
 
