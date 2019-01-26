@@ -131,9 +131,9 @@ In this example, the combination of effects and cleaup will have the net effect 
 
 # Declarative Routing
 
-To enable routing, the app would have a `<Router>` instance at a top-level component, ideally the `<App>`. You will only need to have **one** such instance for the entire app. This is provided by the standard `react-router`, not Reactor Library. You can check the `react-router` [official documentation](https://reacttraining.com/react-router/core/api/Router) for details.
+To enable routing, the app would have a `<Router>` instance at a top-level component, ideally the `<App>`. You will only need to have **one** such instance for the entire app. This is provided by the standard **React Router**, not Reactor Library. You can check the React Router [official documentation](https://reacttraining.com/react-router/core/api/Router) for details.
 
-What Reactor Library does provide is simple, declarative routing that works with  `react-router`.
+What Reactor Library does provide is simple, declarative routing that works with React Router.
 
 ## The Router Outlet
 
@@ -149,6 +149,8 @@ Place this component wherever you need routed views.
 where `routes` defines the routes declaratively (see below).
 
 Routing can apply to any level component, so you can place a `<RouterOutlet>` virtually anywhere in the component tree.
+
+**IMPORTANT:** If your `<RouterOutlet>` and the `<Router>` are not in the same parent component, you would normally need to apply React Router's `withRouter` HOC to the component that renders the `<RouterOutlet>`. This is a requirement of React Router, not of Reactor Library, so please check their documentation for details.
 
 ## Defining Routes
 
