@@ -183,6 +183,8 @@ These are the common cases for routes:
 
 ## Protected Routes
 
+Sometimes you need to restrict access to certain routes depending on some conditions. In such cases, you can do something like this:
+
 ```javascript
   {
     path: '/default',
@@ -225,6 +227,7 @@ Then you can optionally tell `<RouterOutlet>` to display a placeholder (e.g. a s
 ```html
 <RouterOutlet routes={routes} placeholder={<div>...</div>} />
 ```
+where `placeholder` can be any component.
 
 The `<RouterOutlet>` supports routing to such lazy-loaded components by using **React Suspense** internally.
 
