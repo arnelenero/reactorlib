@@ -60,7 +60,8 @@ compose(
 In this example, within `LoginForm` the state props and their corresponding updaters are accessible as follows:
 ```javascript
 const LoginForm = ({ email, setEmail, password, setPassword }) => {
-  // Define component here
+  const handleChangeEmail = event => setEmail(event.target.value);
+  // ... and so on
 }
 ```
 

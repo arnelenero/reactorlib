@@ -13,13 +13,10 @@ export const withState = (name, initialState) => BaseComponent => {
           : initialState,
     };
 
-    update = (newValue, callback) =>
-      this.setState(
-        ({ value }) => ({
-          value: typeof newValue === 'function' ? newValue(value) : newValue,
-        }),
-        callback
-      );
+    update = newValue =>
+      this.setState(({ value }) => ({
+        value: typeof newValue === 'function' ? newValue(value) : newValue,
+      }));
 
     render() {
       const props = {
