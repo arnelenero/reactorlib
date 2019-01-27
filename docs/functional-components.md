@@ -48,7 +48,7 @@ withState(stateName: string, initialValue: any)
 
 The injected prop is just like a regular prop, except that it also behaves as an internal state, i.e. changing its value will re-render the component. For this reason, we will refer to it as a _state prop_.
 
-Apart from the state prop itself, `withState` also injects the corresponding updater function for the state. It is named after the state prop, e.g. for state prop called `email`, the updater function is called `setEmail()`. Since it is also injected, we can refer to it as _updater prop_.
+Apart from the state prop itself, `withState` also injects the corresponding updater function for the state. It is named after the state prop, e.g. for state prop called `email`, the updater function is called `setEmail`. Since it is also injected, we can refer to it as _updater prop_.
 
 An updater prop has the following signature:
 
@@ -98,7 +98,7 @@ Functional components by nature do not have lifecycle methods. However, we can s
 
 ### `withEffect`
 
-This HOC injects a function into the component such that it gets executed whenever the component renders, or only when it mounts. 
+This HOC injects a function into the component such that it gets called each time the component renders, or only once when it mounts. 
 
 ```typescript
 withEffect(effect: Function, onlyOnMount?: boolean)
@@ -110,9 +110,9 @@ The `effect` argument is a function of this form:
 ```javascript
 props => { doSomething() }
 ```
-Note that `withEffect` passes the (optional) `props` of the component to the function.
+Note that `withEffect` passes the `props` of the component to the function.
 
-When `onlyOnMount` is set to `true`, this is the direct alternative to `componentDidMount()`. Otherwise, it behaves like running the effect inside both `componentDidMount()` and `componentDidUpdate()`.
+When `onlyOnMount` is set to `true`, this is the direct alternative to `componentDidMount` of class components. Otherwise, it behaves like running the effect inside both `componentDidMount` and `componentDidUpdate`.
 
 ### `withCleanup`
 
@@ -128,7 +128,9 @@ The `cleanup` argument is a function of this form:
 ```javascript
 props => { doSomething() }
 ```
-Note that `withCleanup` passes the (optional) `props` of the component to the function.
+Note that `withCleanup` passes the `props` of the component to the function.
+
+The cleanup function is the direct alternative to `componentWillUnmount` of class components.
 
 ### Example usage of effects and cleanup
 
