@@ -72,7 +72,7 @@ If a `canEnter` _guard function_ is defined, the router will only activate the m
 
 The general form of such guard function is:
 ```typescript
-guardFn = (outletProps: Object, route: Object) => condition: Boolean
+guardFn = (outletProps: Object, route: Object) => condition: boolean
 ```
 where `outletProps` accepts all props that were passed to `<RouterOutlet>`, while `route` is a reference to the matched route.
 

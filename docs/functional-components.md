@@ -18,7 +18,8 @@ This applies the HOCs passed as arguments, from **right to left** (just like how
 
 Using this format makes stacked HOCs more readable and easier to rearrange, especially since typical HOCs are _parameterized_, i.e. they are actually functions that take some argument(s) and return the actual HOC.
 
-For example:
+#### Example usage
+
 ```javascript
 const MyComponent = compose(
   withStore({ session }),
@@ -42,14 +43,22 @@ To circumvent the _stateless_ nature of functional components, where all you def
 This HOC provides state and makes it available within the component function as an additional prop. 
 
 ```typescript
-withState(state: string, initialValue: any)
+withState(stateName: string, initialValue: any)
 ```
 
 The injected prop is just like a regular prop, except that it also behaves as an internal state, i.e. changing its value will re-render the component. For this reason, we will refer to it as a _state prop_.
 
-Apart from the state prop itself, `withState` also injects the corresponding updater function for the state. This is the equivalent of `this.setState()` in class components. In this case it is named after the state prop, e.g. for state prop called `email`, the updater function is called `setEmail()`. Since it is also injected, we can refer to it as _updater prop_.
+Apart from the state prop itself, `withState` also injects the corresponding updater function for the state. It is named after the state prop, e.g. for state prop called `email`, the updater function is called `setEmail()`. Since it is also injected, we can refer to it as _updater prop_.
 
-Example usage:
+An updater prop has the following signature:
+
+```typescript
+setState(newValue)
+```
+assuming the corresponding state prop is named `state`.
+
+#### Example usage
+
 ```javascript
 compose(
   withState('email', ''),
@@ -64,6 +73,24 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
   // ... and so on
 }
 ```
+
+#### Calculating state based on current value
+
+Due to how React works (batching or deferring state changes as it sees fit), if you need to calculate the new state value based on the current value, it is considered unreliable to do such calculations by direct reference to the state prop within the component itself. 
+
+For this reason, the `value` argument for the updater prop can be a function that has this signature:
+```typescript
+(currentValue) => newValue
+```
+This is lazy evaluated at the actual time the state change is being applied by React, so you are sure that the `currentValue` is really "current".
+
+#### Setting initial value based on props
+
+Sometimes, the initial value of the state prop needs to be calculated based on the component's props. For this purpose, the `initialValue` argument of `withState` can be a function with this signature:
+```typescript
+(props: Object) => initialValue
+```
+where `props` is a reference to the component props object.
 
 ## Effects as Alternative to Lifecycle Methods
 
