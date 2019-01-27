@@ -1,4 +1,5 @@
-# Reactor Library
+
+# <img src="./docs/assets/reactorlib-logo-sml.png" style="margin:0 20px -10px 0"/>Reactor Library
 
 Reactor Library simplifies React/Redux development, minimizing the boilerplate required to get the job done.
 
