@@ -2,27 +2,37 @@ import React, { Component } from 'react';
 
 import withDisplayName from '../utils/withDisplayName';
 
-export const withState = (name, initialState) => BaseComponent => {
-  const updaterName = `set${name.charAt(0).toUpperCase() + name.slice(1)}`;
+export const withState = (...args) => BaseComponent => {
+  const _state = typeof args[0] === 'string' ? { [args[0]]: args[1] } : args[0];
 
   class WithState extends Component {
-    state = {
-      value:
-        typeof initialState === 'function'
-          ? initialState(this.props)
-          : initialState,
-    };
-
-    update = newValue =>
-      this.setState(({ value }) => ({
-        value: typeof newValue === 'function' ? newValue(value) : newValue,
+    update = (name, value) =>
+      this.setState(state => ({
+        [name]: typeof value === 'function' ? value(state[name]) : value,
       }));
+
+    constructor(props) {
+      super(props);
+
+      for (let name in _state) {
+        if (typeof _state[name] === 'function')
+          _state[name] = _state[name](props);
+      }
+      this.state = _state;
+
+      this.updaters = {};
+      for (let stateName in _state) {
+        const name = `set${stateName.charAt(0).toUpperCase() +
+          stateName.slice(1)}`;
+        this.updaters[name] = value => this.update(stateName, value);
+      }
+    }
 
     render() {
       const props = {
         ...this.props,
-        [name]: this.state.value,
-        [updaterName]: this.update,
+        ...this.state,
+        ...this.updaters,
       };
       return <BaseComponent {...props} />;
     }
