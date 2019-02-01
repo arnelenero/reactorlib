@@ -1,4 +1,5 @@
 export { compose } from './compose';
+export { withCallbacks } from './callback';
 export { withContext, getPropsFromContext } from './context';
 export { withEffect, withCleanup } from './effect';
 export { http } from './http';
