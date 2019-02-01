@@ -14,18 +14,15 @@ export const withState = (...args) => BaseComponent => {
     constructor(props) {
       super(props);
 
+      this.updaters = {};
       for (let name in _state) {
         if (typeof _state[name] === 'function')
           _state[name] = _state[name](props);
+
+        const updName = `set${name.charAt(0).toUpperCase() + name.slice(1)}`;
+        this.updaters[updName] = value => this.update(name, value);
       }
       this.state = _state;
-
-      this.updaters = {};
-      for (let stateName in _state) {
-        const name = `set${stateName.charAt(0).toUpperCase() +
-          stateName.slice(1)}`;
-        this.updaters[name] = value => this.update(stateName, value);
-      }
     }
 
     render() {
