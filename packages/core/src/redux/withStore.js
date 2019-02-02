@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
@@ -9,9 +9,14 @@ import { withDisplayName } from '../utils/withDisplayName';
 export const withStore = (entities, middleware = []) => BaseComponent => {
   const WithStore = props => {
     __redux.reducers = entities;
+
+    const enhance =
+      (typeof window !== 'undefined' &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+      compose;
     __redux.store = createStore(
       combineReducers(entities),
-      applyMiddleware(thunk, ...middleware)
+      enhance(applyMiddleware(thunk, ...middleware))
     );
 
     return (

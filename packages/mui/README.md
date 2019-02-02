@@ -4,7 +4,7 @@ Reactor Library simplifies React/Redux development, minimizing the boilerplate r
 
 Here are things that Reactor Library can help you work with:
 
-- Functional Components (state, _effects_)
+- Functional Components (state, callbacks, _effects_)
 - Declarative Routing
 - Simplified App State (fresh take on Redux)
 - Context
