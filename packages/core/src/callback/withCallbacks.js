@@ -12,7 +12,7 @@ export const withCallbacks = (...args) => BaseComponent => {
       this.callbacks = {};
       for (let name in _cb) {
         this.callbacks[name] = (...args) => {
-          const callback = _cb[name](props);
+          const callback = _cb[name](this.props);
           if (typeof callback !== 'function')
             throw new Error(
               `Callback '${name}' was not declared properly using higher-order function`
