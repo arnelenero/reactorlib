@@ -26,8 +26,10 @@
     "build:es": "babel src --out-dir es",
     "build": "npm run build:lib && npm run build:es",
     "clean": "rimraf lib es",
-    "prepare": "npm run clean && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "npm run clean && npm test",
+    "pretest": "npm run build",
+    "test": "jest",
+    "test:cov": "npm test -- --coverage"
   },
   "peerDependencies": {
     "react": "^16.7.0"
@@ -45,9 +47,23 @@
     "@babel/plugin-proposal-class-properties": "^7.2.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.0.0",
     "cross-env": "^5.2.0",
-    "rimraf": "^2.6.2"
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.8.0",
+    "jest": "^24.0.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-test-renderer": "^16.7.0",
+    "rimraf": "^2.6.2",
+    "sinon": "^7.2.3"
+  },
+  "jest": {
+    "testRegex": "(/test/.*\\.spec\\.js)$",
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/_setup.js"
+    ]
   }
 }
