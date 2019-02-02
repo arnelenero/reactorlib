@@ -4,9 +4,6 @@ import { withCallbacks } from '../../src';
 
 describe('withCallbacks', () => {
   it('injects callbacks to base component', () => {
-    let submitted = false;
-    let clicked = false;
-
     const _Form = ({ handleSubmit, handleClick }) => (
       <form onSubmit={handleSubmit}>
         <button type="button" onClick={handleClick}>
@@ -29,10 +26,28 @@ describe('withCallbacks', () => {
     const form = component.find('form');
     const button = component.find('button[type="button"]');
 
+    let submitted = false;
+    let clicked = false;
+
     button.simulate('click');
     expect(clicked).toBe(true);
 
     form.simulate('submit');
     expect(submitted).toBe(true);
+  });
+
+  it('throws error when a callback is not defined using higher-order function', () => {
+    const _Button = ({ handleClick }) => (
+      <button onClick={handleClick}>Click Me</button>
+    );
+
+    const Button = withCallbacks({
+      handleClick: event => {},
+    })(_Button);
+
+    const component = mount(<Button />);
+    const button = component.find('button');
+
+    expect(() => button.simulate('click')).toThrow();
   });
 });

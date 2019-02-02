@@ -64,6 +64,11 @@
     "testRegex": "(/test/.*\\.spec\\.js)$",
     "setupFilesAfterEnv": [
       "<rootDir>/test/_setup.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/index.js",
+      "!src/index.js"
     ]
   }
 }
