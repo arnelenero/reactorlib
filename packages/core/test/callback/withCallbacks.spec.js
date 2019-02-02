@@ -36,6 +36,26 @@ describe('withCallbacks', () => {
     expect(submitted).toBe(true);
   });
 
+  it('makes component props available inside the callback', () => {
+    const _Button = ({ handleClick }) => (
+      <button onClick={handleClick}>Click Me</button>
+    );
+
+    const Button = withCallbacks({
+      handleClick: ({ msg }) => event => {
+        message = msg;
+      },
+    })(_Button);
+
+    const component = mount(<Button msg="Hello" />);
+    const button = component.find('button');
+
+    let message = '';
+
+    button.simulate('click');
+    expect(message).toBe('Hello');
+  });
+
   it('throws error when a callback is not defined using higher-order function', () => {
     const _Button = ({ handleClick }) => (
       <button onClick={handleClick}>Click Me</button>
@@ -48,6 +68,8 @@ describe('withCallbacks', () => {
     const component = mount(<Button />);
     const button = component.find('button');
 
-    expect(() => button.simulate('click')).toThrow();
+    try {
+      expect(() => button.simulate('click')).toThrow();
+    } catch (e) {}
   });
 });
