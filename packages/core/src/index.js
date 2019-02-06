@@ -8,6 +8,7 @@ export {
   withFeatureStore,
   getPropsFromStore,
   createEntity,
+  cancelAction,
 } from './redux';
 export { RouterOutlet } from './routing';
 export { withState } from './state';

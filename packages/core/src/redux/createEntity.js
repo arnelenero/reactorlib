@@ -1,4 +1,4 @@
-import { __actionCreators } from './_memo';
+import { __actionCreators, __cancelled } from './_memo';
 
 export const createEntity = (reactions, initialState = {}) => {
   const handlers = {};
@@ -10,10 +10,13 @@ export const createEntity = (reactions, initialState = {}) => {
 
   const registerAsyncHandler = (type, handler, count) => {
     if (count === 3) registerHandler(`${type}Start`, handler[0]);
-    __actionCreators[type] = payload => dispatch => {
+    __actionCreators[type] = (payload, txnId) => dispatch => {
       if (count === 3) dispatch(__actionCreators[`${type}Start`](payload));
-      handler[count - 2](payload, nextPayload =>
-        dispatch(__actionCreators[`${type}End`](nextPayload))
+      handler[count - 2](
+        payload,
+        nextPayload =>
+          !__cancelled[txnId] &&
+          dispatch(__actionCreators[`${type}End`](nextPayload))
       );
     };
     registerHandler(`${type}End`, handler[count - 1]);
