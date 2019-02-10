@@ -2,7 +2,7 @@
 
 The use of Reactor Library's _higher order components_ (HOCs) encourage the use of _functional components_ (in constrast to _class components_), which are enhanced by injecting data or additional functionality into them. You can, however, also use Reactor Library with your existing class based components.
 
-**Note on React Hooks:** At the time of this writing, the React Hooks API has not been officially released yet. Developers who choose to jump to pure functional components right away will find Reactor Library's HOCs useful while waiting for the Hooks version.
+**Note on React Hooks:** The React Hooks API has been officially released, and Reactor Library will soon follow suit with the hook version of most of its HOCs. However, depending on the specific use-case, some developers might still prefer/need to use HOCs over hooks. It looks like in some cases HOCs can be significantly faster than Hooks (see [this article](https://medium.com/@aenero/react-hooks-slower-than-hoc-ff105586036) which compares Hooks performance to Reactor Library HOCs).
 
 ## Enhancing Components by Composition
 
@@ -40,15 +40,17 @@ To circumvent the _stateless_ nature of functional components, where all you def
 
 ### `withState`
 
-This HOC provides state and makes it available within the component function as an additional prop. 
+This HOC provides component state and makes it accessible within the component function as additional props. 
 
 ```typescript
-withState(stateName: string, initialValue: any)
+withState(state: Object)
 ```
 
-The injected prop is just like a regular prop, except that it also behaves as an internal state, i.e. changing its value will re-render the component. For this reason, we will refer to it as a _state prop_.
+The `state` argument consists of key-value pairs that define both the structure of the state and its initial value. Each key in `state` will be injected as a separate prop into the component.
 
-Apart from the state prop itself, `withState` also injects the corresponding updater function for the state. It is named after the state prop, e.g. for state prop called `email`, the updater function is called `setEmail`. Since it is also injected, we can refer to it as _updater prop_.
+Each injected prop is just like a regular prop, except that it also behaves as an internal state, i.e. changing its value will re-render the component. For this reason, we will refer to it as a _state prop_.
+
+Apart from the state props, `withState` also injects the corresponding updater functions for them. The names are based on the state props, e.g. for state prop called `email`, the updater function is called `setEmail`. We can refer to each updater function injected to the component as an _updater prop_.
 
 An updater prop has the following signature:
 
@@ -60,10 +62,10 @@ assuming the corresponding state prop is named `state`.
 #### Example usage
 
 ```javascript
-compose(
-  withState('email', ''),
-  withState('password', '')
-)(LoginForm);
+withState({
+  email: '',
+  password: ''
+})(LoginForm);
 ```
 
 In this example, within `LoginForm` the state props and their corresponding updaters are accessible as follows:
