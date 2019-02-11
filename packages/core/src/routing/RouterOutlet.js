@@ -46,11 +46,11 @@ export const RouterOutlet = ({ routes, placeholder, ..._props }) => (
 );
 
 const resolveFromProps = (route, props) => {
-  const resolve = val => (typeof val === 'function' ? val(props) : val);
+  const resolve = val => (typeof val === 'function' ? val(props, route) : val);
   return {
     ...route,
-    redirectTo: resolve(route.redirectTo, props),
-    fallback: resolve(route.fallback, props),
+    redirectTo: resolve(route.redirectTo),
+    fallback: resolve(route.fallback),
   };
 };
 
