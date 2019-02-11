@@ -4,8 +4,9 @@ import { Route, Switch, Redirect } from 'react-router';
 
 export const RouterOutlet = ({ routes, placeholder, ..._props }) => (
   <Switch>
-    {routes.map((route, index) =>
-      route.redirectTo ? (
+    {routes.map((route, index) => {
+      route = resolveFromProps(route, _props);
+      return route.redirectTo ? (
         <Redirect
           key={index}
           from={route.path}
@@ -39,10 +40,19 @@ export const RouterOutlet = ({ routes, placeholder, ..._props }) => (
             )
           }
         />
-      )
-    )}
+      );
+    })}
   </Switch>
 );
+
+const resolveFromProps = (route, props) => {
+  const resolve = val => (typeof val === 'function' ? val(props) : val);
+  return {
+    ...route,
+    redirectTo: resolve(route.redirectTo, props),
+    fallback: resolve(route.fallback, props),
+  };
+};
 
 export const routePropType = PropTypes.shape({
   path: PropTypes.oneOfType([
@@ -53,8 +63,16 @@ export const routePropType = PropTypes.shape({
   strict: PropTypes.bool,
   component: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   canEnter: PropTypes.func,
-  fallback: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  redirectTo: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  fallback: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  redirectTo: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   push: PropTypes.bool,
 });
 

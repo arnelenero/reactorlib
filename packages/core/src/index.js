@@ -10,6 +10,6 @@ export {
   createEntity,
   cancelAction,
 } from './redux';
-export { RouterOutlet } from './routing';
+export { RouterOutlet, withRouter } from './routing';
 export { withState } from './state';
 export { withDisplayName } from './utils/withDisplayName';
