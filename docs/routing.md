@@ -6,7 +6,7 @@ What Reactor Library does provide is simple, declarative routing that works with
 
 ## The Router Outlet
 
-Admittedly inspired by Angular's approach to routing, Reactor Library provides a _router outlet_ component that dynamically changes content depending on the current route. This is a convenient drop-in replacement for React Router's combination of `<Switch>`, `<Route>` and `<Redirect>` components, and then adds a couple of neat features as well.
+Inspired by Angular's approach to routing, Reactor Library provides a _router outlet_ component that dynamically changes content depending on the current route. This is a convenient drop-in replacement for React Router's combination of `<Switch>`, `<Route>` and `<Redirect>` components, and then adds a couple of neat features as well.
 
 ### `<RouterOutlet>`
 
@@ -19,7 +19,7 @@ where `routes` defines the routes declaratively (see below).
 
 Routing can apply to any level component, so you can place a `<RouterOutlet>` virtually anywhere in the component tree. Similarly, you can have as many nested router outlets as required in the application, particularly when your route paths go from wildcard to specific.
 
-**IMPORTANT:** If your `<RouterOutlet>` and the `<Router>` are not in the same parent component, you would normally need to apply React Router's `withRouter` HOC to the component that renders the `<RouterOutlet>`. This is a requirement of React Router, not of Reactor Library, so please check their documentation for details.
+**IMPORTANT:** If your `<RouterOutlet>` and the `<Router>` are not in the same parent component, you would normally need to apply React Router's `withRouter` HOC to the component that renders the `<RouterOutlet>`. This is a requirement of React Router, not of Reactor Library, so please check their documentation for details. Reactor Library re-exports `withRouter` for your convenience, though.
 
 ## Defining Routes Declaratively
 
@@ -68,13 +68,13 @@ Sometimes you need to restrict access to certain routes depending on some condit
 const isAuthenticated = ({ auth }) => auth !== null;
 ```
 
-If a `canEnter` _guard function_ is defined, the router will only activate the matched route if this function evaluates to `true`. Otherwise, it will route to the `fallback` path. This is useful for apps that require user login to access specific features.
+If a `canEnter` _guard function_ is defined, the router will only activate the matched route if this function evaluates to `true`. Otherwise, it will route to the `fallback` path. This is useful for apps that require user login to access specific features. Just make sure to define `fallback` whenever you have a `canEnter`.
 
-The general form of such guard function is:
+The signature of such guard function is:
 ```typescript
-guardFn = (outletProps: Object, route: Object) => condition: boolean
+(outletProps: Object, route: Object) => condition: boolean
 ```
-where `outletProps` accepts all props that were passed to `<RouterOutlet>`, while `route` is a reference to the matched route.
+where `outletProps` contains all props that were passed to `<RouterOutlet>`, while `route` is a reference to the matched route.
 
 In the example above, the outlet would look like this:
 ```html
@@ -82,7 +82,29 @@ In the example above, the outlet would look like this:
 ```
 so that the `auth` prop is passed to the `isAuthenticated` guard.
 
-If you pass some _state_ value (or an injected _state prop_, either internal or from store), the `<RouterOutlet>` will re-evaluate the guard function and hence re-render whenever this state value changes.
+If you pass some _state_ value (or an injected _state prop_, either internal or from store), the `<RouterOutlet>` will re-render, hence routing will happen, whenever this state value changes.
+
+## Lazy Evaluated Redirection/Fallback
+
+Both `redirectTo` and `fallback` in your routes can alternatively be expressed as functions with the following signature:
+
+```typescript
+(outletProps: Object, route: Object) => path: string
+```
+
+In this case, these path values are only evaluated when the `<RouterOutlet>` renders, and therefore you can dynamically determine the target paths based on props that were passed to the outlet, similar to how `canEnter` works with such props.
+
+For example:
+```javascript
+{
+  path: '/login',
+  redirectTo: ({ referrer }) => referrer
+}
+```
+where `referrer` is a prop of the outlet:
+```html
+  <RouterOutlet routes={routes} referrer={currentPath} />
+```
 
 ## Routing to Lazy Loaded Components
 
