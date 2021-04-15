@@ -8,7 +8,7 @@ export const withContext = (name, selector) => BaseComponent => {
   if (selector instanceof Array) selector = listToSelector(selector);
 
   const WithContext = props => {
-    const context = (__contexts[name] = React.createContext());
+    const context = (__contexts[name] = React.createContext(selector(props)));
     return (
       <context.Provider value={selector(props)}>
         <BaseComponent {...props} />
