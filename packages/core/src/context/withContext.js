@@ -10,7 +10,7 @@ export const withContext = (name, selector) => BaseComponent => {
   const WithContext = props => {
     const context = (__contexts[name] = React.createContext(selector(props)));
     return (
-      <context.Provider value={selector(props)}>
+      <context.Provider>
         <BaseComponent {...props} />
       </context.Provider>
     );
